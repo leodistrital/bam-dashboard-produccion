@@ -1,0 +1,33 @@
+.loading{
+    background-color: black;
+    width: 90px;
+     height: 90px; 
+    opacity: 1;  
+     border-radius: 50%
+
+}
+
+.loading > .p-dialog-content {
+    background-color: var(--surface-900) !important;
+    border-radius: 90%;
+    opacity: 1;
+    padding: .25em .25rem .25rem .25rem;
+    border-style: hidden;
+    overflow: hidden;
+}
+
+
+
+.carousel-demo .product-item .product-item-content {
+    border: 1px solid var(--surface-d);
+    border-radius: 3px;
+    margin: .1rem;
+    text-align: center;
+    padding: 1rem 0;
+}
+
+.carousel-demo .product-item .product-image {
+    width: 80%;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+

@@ -1,0 +1,58 @@
+@import "./_variables";
+@import "./sass/_layout";
+@import "./_overrides";
+
+
+.accordion-demo .accordion-custom i, .accordion-demo .accordion-custom span {
+    vertical-align: middle;
+}
+
+.accordion-demo .accordion-custom span {
+    margin: 0 .5rem;
+}
+
+.accordion-demo .p-accordion p {
+    line-height: 1.5;
+    margin: 0;
+}
+
+
+.p-tabview-nav {
+   justify-content: flex-end;
+}
+
+.field > label{
+    font-weight: 600;
+}
+
+/* AccordionDemo.css */
+
+.accordion-demo .accordion-custom i, .accordion-demo .accordion-custom span {
+    vertical-align: middle;
+}
+
+.accordion-demo .accordion-custom span {
+    margin: 0 .2rem;
+}
+
+.accordion-demo .p-accordion p {
+    // line-height: 1.5;
+    margin: 0;
+}
+
+.p-accordion .p-accordion-header .p-accordion-header-link {
+    transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+.p-accordion .p-accordion-header .p-accordion-header-link {
+    padding: 1.25rem;
+    border: 1px solid #dee2e6;
+    color: #6c757d;
+    background: #f8f9fa;
+    font-weight: 400;
+    border-radius: 15px;
+    transition: box-shadow 0.2s;
+}
+
+.p-image-preview-indicator{
+    width: 50%;
+}
