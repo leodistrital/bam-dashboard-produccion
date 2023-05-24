@@ -32,6 +32,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setDataSet, setFormData } from "../../store/appSlice";
 import { Cargando } from "../../components/crud/Cargando";
 import { ImagenCampo } from "../../components/crud/ImagenCampo";
+import { AdjuntoCampo } from "../../components/crud/AdjuntoCampo";
 
 export const Acreditados = () => {
 	const TABLA = "acr_registo";
@@ -54,6 +55,10 @@ export const Acreditados = () => {
 	const [dropdowsexo, setdropdowsexo] = useState(null);
 	const [dropdowidentidadgen, setdropdowidentidadgen] = useState(null);
 	const [dropdowetnia, setdropdowetnia] = useState(null);
+	const [dropdowidioma, setdropdowidioma] = useState(null);
+	const [dropdowsino, setdropdowsino] = useState(null);
+	const [dropdowciudadparticipo, setdropdowciudadparticipo] = useState(null);
+	const [dropdowprofecional, setdropdowprofecional] = useState(null);
 
 	// console.log({grupo});
 
@@ -104,6 +109,26 @@ export const Acreditados = () => {
 		datatable.gettable("parametros/parametros/etnia").then((datos) => {
 			setdropdowetnia(datos);
 		});
+
+		datatable.gettable("parametros/parametros/idioma").then((datos) => {
+			setdropdowidioma(datos);
+		});
+
+		datatable.gettable("parametros/parametros/sino").then((datos) => {
+			setdropdowsino(datos);
+		});
+
+		datatable
+			.gettable("parametros/parametros/ciudadparticipo")
+			.then((datos) => {
+				setdropdowciudadparticipo(datos);
+			});
+
+		datatable
+			.gettable("parametros/parametros/profesional")
+			.then((datos) => {
+				setdropdowprofecional(datos);
+			});
 	}, []);
 
 	/*eventos*/
@@ -225,7 +250,7 @@ export const Acreditados = () => {
 							header='Nombre'
 							sortable
 							headerStyle={{
-								width: "30%",
+								width: "20%",
 								minWidth: "10rem",
 							}}></Column>
 
@@ -234,24 +259,32 @@ export const Acreditados = () => {
 							header='Apellidos'
 							sortable
 							headerStyle={{
-								width: "50%",
+								width: "20%",
 								minWidth: "10rem",
 							}}></Column>
 
+						<Column
+							field='tipoacreditacion'
+							header='Tipo'
+							sortable
+							headerStyle={{
+								width: "3015%",
+								minWidth: "10rem",
+							}}></Column>
 						<Column
 							field='mai_reg'
 							header='Correo'
 							sortable
 							headerStyle={{
-								width: "15%",
+								width: "10%",
 								minWidth: "10rem",
 							}}></Column>
 						<Column
-							field='finacreditacion'
+							field='estado'
 							header='Status'
 							sortable
 							headerStyle={{
-								width: "15%",
+								width: "10%",
 								minWidth: "10rem",
 							}}></Column>
 
@@ -365,27 +398,6 @@ export const Acreditados = () => {
 											placeholder='Seleccione'
 										/>
 									</div>
-
-									<div className='field col-6'>
-										<label htmlFor='finacreditacion'>
-											Estado:
-										</label>
-										<Dropdown
-											value={formData.finacreditacion}
-											onChange={(e) => {
-												dispatch(
-													setFormData({
-														...formData,
-														finacreditacion:
-															e.value,
-													})
-												);
-											}}
-											options={dropdownasistencia}
-											optionLabel='name'
-											placeholder='Seleccione'
-										/>
-									</div>
 								</div>
 
 								<div className='field col'>
@@ -473,7 +485,7 @@ export const Acreditados = () => {
 											Pais de Residencia:
 										</label>
 										<Dropdown
-											value={formData.finacreditacion}
+											value={formData.paisresidencia}
 											onChange={(e) => {
 												dispatch(
 													setFormData({
@@ -489,16 +501,16 @@ export const Acreditados = () => {
 										/>
 									</div>
 									<div className='field col-6'>
-										<label htmlFor='numdocumento'>
+										<label htmlFor='ciudadresidencia'>
 											Ciudad:
 										</label>
 										<InputText
 											id='numdocumento'
-											value={formData.numdocumento}
+											value={formData.ciudadresidencia}
 											onChange={(e) =>
 												onInputChange(
 													e,
-													"aapenumdocumentollidope_reg"
+													"ciudadresidencia"
 												)
 											}
 										/>
@@ -506,33 +518,32 @@ export const Acreditados = () => {
 								</div>
 								<div className='col formgrid grid'>
 									<div className='field col-6'>
-										<label htmlFor='numdocumento'>
+										<label htmlFor='dirresidencia'>
 											Direccion:
 										</label>
 										<InputText
-											id='numdocumento'
-											value={formData.numdocumento}
+											id='dirresidencia'
+											value={formData.dirresidencia}
 											onChange={(e) =>
 												onInputChange(
 													e,
-													"aapenumdocumentollidope_reg"
+													"dirresidencia"
 												)
 											}
 										/>
 									</div>
 
 									<div className='field col-6'>
-										<label htmlFor='finacreditacion'>
+										<label htmlFor='nacionalidad'>
 											Nacionalidad:
 										</label>
 										<Dropdown
-											value={formData.finacreditacion}
+											value={formData.nacionalidad}
 											onChange={(e) => {
 												dispatch(
 													setFormData({
 														...formData,
-														finacreditacion:
-															e.value,
+														nacionalidad: e.value,
 													})
 												);
 											}}
@@ -545,17 +556,16 @@ export const Acreditados = () => {
 
 								<div className='col formgrid grid'>
 									<div className='field col-6'>
-										<label htmlFor='finacreditacion'>
+										<label htmlFor='localidad'>
 											Localidad:
 										</label>
 										<Dropdown
-											value={formData.finacreditacion}
+											value={formData.localidad}
 											onChange={(e) => {
 												dispatch(
 													setFormData({
 														...formData,
-														finacreditacion:
-															e.value,
+														localidad: e.value,
 													})
 												);
 											}}
@@ -566,17 +576,16 @@ export const Acreditados = () => {
 									</div>
 
 									<div className='field col-6'>
-										<label htmlFor='finacreditacion'>
+										<label htmlFor='estrato'>
 											Estrato:
 										</label>
 										<Dropdown
-											value={formData.finacreditacion}
+											value={formData.estrato}
 											onChange={(e) => {
 												dispatch(
 													setFormData({
 														...formData,
-														finacreditacion:
-															e.value,
+														estrato: e.value,
 													})
 												);
 											}}
@@ -589,17 +598,14 @@ export const Acreditados = () => {
 
 								<div className='col formgrid grid'>
 									<div className='field col-6'>
-										<label htmlFor='finacreditacion'>
-											Sexo:
-										</label>
+										<label htmlFor='sexo'>Sexo:</label>
 										<Dropdown
-											value={formData.finacreditacion}
+											value={formData.sexo}
 											onChange={(e) => {
 												dispatch(
 													setFormData({
 														...formData,
-														finacreditacion:
-															e.value,
+														sexo: e.value,
 													})
 												);
 											}}
@@ -610,17 +616,16 @@ export const Acreditados = () => {
 									</div>
 
 									<div className='field col-6'>
-										<label htmlFor='finacreditacion'>
+										<label htmlFor='identidad'>
 											Identidad de Genero:
 										</label>
 										<Dropdown
-											value={formData.finacreditacion}
+											value={formData.identidad}
 											onChange={(e) => {
 												dispatch(
 													setFormData({
 														...formData,
-														finacreditacion:
-															e.value,
+														identidad: e.value,
 													})
 												);
 											}}
@@ -633,33 +638,32 @@ export const Acreditados = () => {
 
 								<div className='col formgrid grid'>
 									<div className='field col-6'>
-										<label htmlFor='numdocumento'>
+										<label htmlFor='nacimientofecha'>
 											Fecha Nacimiento:
 										</label>
 										<InputText
-											id='numdocumento'
-											value={formData.numdocumento}
+											id='nacimientofecha'
+											value={formData.nacimientofecha}
 											onChange={(e) =>
 												onInputChange(
 													e,
-													"aapenumdocumentollidope_reg"
+													"nacimientofecha"
 												)
 											}
 										/>
 									</div>
 
 									<div className='field col-6'>
-										<label htmlFor='finacreditacion'>
+										<label htmlFor='grupoetnia'>
 											Grupo Etnico:
 										</label>
 										<Dropdown
-											value={formData.finacreditacion}
+											value={formData.grupoetnia}
 											onChange={(e) => {
 												dispatch(
 													setFormData({
 														...formData,
-														finacreditacion:
-															e.value,
+														grupoetnia: e.value,
 													})
 												);
 											}}
@@ -672,155 +676,402 @@ export const Acreditados = () => {
 							</TabPanel>
 
 							<TabPanel headerTemplate={tabHeaderIIPaso2}>
-								<div className='field col'>
-									<label htmlFor='tit_ave_ing'>
-										Titulo ingles:
-									</label>
-									<InputText
-										id='tit_ave_ing'
-										value={formData.tit_ave_ing}
-										onChange={(e) =>
-											onInputChange(e, "tit_ave_ing")
-										}
-									/>
+								<div className='col formgrid grid'>
+									<div className='field col-6'>
+										<label htmlFor='indicativo'>
+											Indicativo:
+										</label>
+										<Dropdown
+											value={formData.indicativo}
+											onChange={(e) => {
+												dispatch(
+													setFormData({
+														...formData,
+														indicativo: e.value,
+													})
+												);
+											}}
+											options={dropdowpaises}
+											optionLabel='name'
+											placeholder='Seleccione'
+										/>
+									</div>
+
+									<div className='field col-6'>
+										<label htmlFor='telefono'>
+											Telefno:
+										</label>
+										<InputText
+											id='telefono'
+											value={formData.telefono}
+											onChange={(e) =>
+												onInputChange(e, "telefono")
+											}
+										/>
+									</div>
+								</div>
+								<div className='col formgrid grid'>
+									<div className='field col-6'>
+										<label htmlFor='mailcontacto'>
+											Correo Contacto:
+										</label>
+										<InputText
+											id='mailcontacto'
+											value={formData.mailcontacto}
+											onChange={(e) =>
+												onInputChange(e, "mailcontacto")
+											}
+										/>
+									</div>
+									<div className='field col-6'>
+										<label htmlFor='idioma'>Idioma:</label>
+										<Dropdown
+											value={formData.idioma}
+											onChange={(e) => {
+												dispatch(
+													setFormData({
+														...formData,
+														idioma: e.value,
+													})
+												);
+											}}
+											options={dropdowidioma}
+											optionLabel='name'
+											placeholder='Seleccione'
+										/>
+									</div>
 								</div>
 
-								<div className='field col'>
-									<label htmlFor='des_ave_ing'>
-										Descripcion ingles:
-									</label>
-									<EditorHtml
-										valorinicial={formData.des_ave_ing}
-										nombre='des_ave_ing'
-										cambiohtml={cambiohtml}
-									/>
+								<div className='col formgrid grid'>
+									<div className='field col-6'>
+										<label htmlFor='partifiporegiones'>
+											¿Participó en ediciones anteriores
+											de BAM Regiones?::
+										</label>
+										<Dropdown
+											value={formData.partifiporegiones}
+											onChange={(e) => {
+												dispatch(
+													setFormData({
+														...formData,
+														partifiporegiones:
+															e.value,
+													})
+												);
+											}}
+											options={dropdowsino}
+											optionLabel='name'
+											placeholder='Seleccione'
+										/>
+									</div>
+									<div className='field col-6'>
+										<label htmlFor='ciudadparticipo'>
+											Ciudad:
+										</label>
+										<Dropdown
+											value={formData.ciudadparticipo}
+											onChange={(e) => {
+												dispatch(
+													setFormData({
+														...formData,
+														ciudadparticipo:
+															e.value,
+													})
+												);
+											}}
+											options={dropdowciudadparticipo}
+											optionLabel='name'
+											placeholder='Seleccione'
+										/>
+									</div>
 								</div>
-								<div className='field col'>
-									<label htmlFor='nor_ave_ing'>
-										Nota ingles:
-									</label>
-									<InputText
-										id='nor_ave_ing'
-										value={formData.nor_ave_ing}
-										onChange={(e) =>
-											onInputChange(e, "nor_ave_ing")
-										}
-									/>
+								<div className='col formgrid grid'>
+									<div className='field col-6'>
+										<label htmlFor='indicativopublicacion'>
+											Indicativo Publicaciones:
+										</label>
+										<Dropdown
+											value={
+												formData.indicativopublicacion
+											}
+											onChange={(e) => {
+												dispatch(
+													setFormData({
+														...formData,
+														indicativopublicacion:
+															e.value,
+													})
+												);
+											}}
+											options={dropdowpaises}
+											optionLabel='name'
+											placeholder='Seleccione'
+										/>
+									</div>
+
+									<div className='field col-6'>
+										<label htmlFor='telefonopublicacion'>
+											Telefno Publicaciones:
+										</label>
+										<InputText
+											id='telefonopublicacion'
+											value={formData.telefonopublicacion}
+											onChange={(e) =>
+												onInputChange(
+													e,
+													"telefonopublicacion"
+												)
+											}
+										/>
+									</div>
 								</div>
 
-								<div className='field col'>
-									<label htmlFor='pre_ave_ing'>
-										Prerequistos ingles:
-									</label>
-									<InputText
-										id='pre_ave_ing'
-										value={formData.pre_ave_ing}
-										onChange={(e) =>
-											onInputChange(e, "pre_ave_ing")
-										}
-									/>
+								<div className='col formgrid grid'>
+									<div className='field col-6'>
+										<label htmlFor='correopublicacion'>
+											Correo Publicaciones:
+										</label>
+										<InputText
+											id='correopublicacion'
+											value={formData.correopublicacion}
+											onChange={(e) =>
+												onInputChange(
+													e,
+													"correopublicacion"
+												)
+											}
+										/>
+									</div>
+									<div className='field col-6'>
+										<label htmlFor='sectoractividad'>
+											Activiadad Profesional:
+										</label>
+										<Dropdown
+											value={formData.sectoractividad}
+											onChange={(e) => {
+												dispatch(
+													setFormData({
+														...formData,
+														sectoractividad:
+															e.value,
+													})
+												);
+											}}
+											options={dropdowprofecional}
+											optionLabel='name'
+											placeholder='Seleccione'
+										/>
+									</div>
 								</div>
 							</TabPanel>
 
 							<TabPanel headerTemplate={tabHeaderIIPaso3}>
-								<div className='field col'>
-									<label htmlFor='tit_ave_ing'>
-										Titulo ingles:
-									</label>
-									<InputText
-										id='tit_ave_ing'
-										value={formData.tit_ave_ing}
-										onChange={(e) =>
-											onInputChange(e, "tit_ave_ing")
-										}
-									/>
+								<div className='col formgrid grid'>
+									<div className='field col-6'>
+										<label htmlFor='nombreempresa'>
+											Nombre Empresa:
+										</label>
+										<InputText
+											id='nombreempresa'
+											value={formData.nombreempresa}
+											onChange={(e) =>
+												onInputChange(
+													e,
+													"nombreempresa"
+												)
+											}
+										/>
+									</div>
+
+									<div className='field col-6'>
+										<label htmlFor='nit'>Nit:</label>
+										<InputText
+											id='nit'
+											value={formData.nit}
+											onChange={(e) =>
+												onInputChange(e, "nit")
+											}
+										/>
+									</div>
 								</div>
 
-								<div className='field col'>
-									<label htmlFor='des_ave_ing'>
-										Descripcion ingles:
-									</label>
-									<EditorHtml
-										valorinicial={formData.des_ave_ing}
-										nombre='des_ave_ing'
-										cambiohtml={cambiohtml}
-									/>
-								</div>
-								<div className='field col'>
-									<label htmlFor='nor_ave_ing'>
-										Nota ingles:
-									</label>
-									<InputText
-										id='nor_ave_ing'
-										value={formData.nor_ave_ing}
-										onChange={(e) =>
-											onInputChange(e, "nor_ave_ing")
-										}
-									/>
+								<div className='col formgrid grid'>
+									<div className='field col-6'>
+										<label htmlFor='cargoempresa'>
+											Cargo:
+										</label>
+										<InputText
+											id='cargoempresa'
+											value={formData.cargoempresa}
+											onChange={(e) =>
+												onInputChange(e, "cargoempresa")
+											}
+										/>
+									</div>
+
+									<div className='field col-6'>
+										<label htmlFor='direccionempresa'>
+											Direccion Empresa:
+										</label>
+										<InputText
+											id='direccionempresa'
+											value={formData.nit}
+											onChange={(e) =>
+												onInputChange(
+													e,
+													"direccionempresa"
+												)
+											}
+										/>
+									</div>
 								</div>
 
+								<div className='col formgrid grid'>
+									<div className='field col-6'>
+										<label htmlFor='indicativoempresa'>
+											Indicativo Empresa:
+										</label>
+										<Dropdown
+											value={formData.indicativoempresa}
+											onChange={(e) => {
+												dispatch(
+													setFormData({
+														...formData,
+														indicativoempresa:
+															e.value,
+													})
+												);
+											}}
+											options={dropdowpaises}
+											optionLabel='name'
+											placeholder='Seleccione'
+										/>
+									</div>
+
+									<div className='field col-6'>
+										<label htmlFor='telefonoempresa'>
+											Telefno Empresa:
+										</label>
+										<InputText
+											id='telefonoempresa'
+											value={formData.telefonoempresa}
+											onChange={(e) =>
+												onInputChange(
+													e,
+													"telefonoempresa"
+												)
+											}
+										/>
+									</div>
+								</div>
+
+								<div className='col formgrid grid'>
+									<div className='field col-6'>
+										<label htmlFor='correoempresa'>
+											Correo Empresa:
+										</label>
+										<InputText
+											id='correoempresa'
+											value={formData.correoempresa}
+											onChange={(e) =>
+												onInputChange(
+													e,
+													"correoempresa"
+												)
+											}
+										/>
+									</div>
+									<div className='field col-6'>
+										<label htmlFor='paisempresa'>
+											PAis Empresa:
+										</label>
+										<Dropdown
+											value={formData.paisempresa}
+											onChange={(e) => {
+												dispatch(
+													setFormData({
+														...formData,
+														paisempresa: e.value,
+													})
+												);
+											}}
+											options={dropdowpaises}
+											optionLabel='name'
+											placeholder='Seleccione'
+										/>
+									</div>
+								</div>
+								<div className='col formgrid grid'>
+									<div className='field col-6'>
+										<label htmlFor='ciudadempresa'>
+											Ciudad Empresa:
+										</label>
+										<InputText
+											id='ciudadempresa'
+											value={formData.ciudadempresa}
+											onChange={(e) =>
+												onInputChange(
+													e,
+													"ciudadempresa"
+												)
+											}
+										/>
+									</div>
+								</div>
 								<div className='field col'>
-									<label htmlFor='pre_ave_ing'>
-										Prerequistos ingles:
+									<label htmlFor='webempresa'>
+										Pagina redes sociales:
 									</label>
 									<InputText
-										id='pre_ave_ing'
-										value={formData.pre_ave_ing}
+										id='webempresa'
+										value={formData.webempresa}
 										onChange={(e) =>
-											onInputChange(e, "pre_ave_ing")
+											onInputChange(e, "webempresa")
 										}
 									/>
 								</div>
 							</TabPanel>
 
 							<TabPanel headerTemplate={tabHeaderIIPaso4}>
-								<div className='field col'>
-									<label htmlFor='tit_ave_ing'>
-										Titulo ingles:
-									</label>
-									<InputText
-										id='tit_ave_ing'
-										value={formData.tit_ave_ing}
-										onChange={(e) =>
-											onInputChange(e, "tit_ave_ing")
-										}
-									/>
+								<div className='formgrid grid'>
+									<div className='field col-6'>
+										<AdjuntoCampo
+											label='Fotografia'
+											formData={formData}
+											CampoImagen='ad1_edi'
+											nombreCampo='demo'
+											edicampo={formData.fotoacreditacion}
+											urlupload='/upload/docs'
+										/>
+									</div>
 								</div>
-
-								<div className='field col'>
-									<label htmlFor='des_ave_ing'>
-										Descripcion ingles:
-									</label>
-									<EditorHtml
-										valorinicial={formData.des_ave_ing}
-										nombre='des_ave_ing'
-										cambiohtml={cambiohtml}
-									/>
+								<div className='formgrid grid'>
+									<div className='field col-6'>
+										<AdjuntoCampo
+											label='Certificado Vinculo'
+											formData={formData}
+											CampoImagen='ad1_edi'
+											nombreCampo='demo'
+											edicampo={
+												formData.certificadovinculo
+											}
+											urlupload='/upload/docs'
+										/>
+									</div>
 								</div>
-								<div className='field col'>
-									<label htmlFor='nor_ave_ing'>
-										Nota ingles:
-									</label>
-									<InputText
-										id='nor_ave_ing'
-										value={formData.nor_ave_ing}
-										onChange={(e) =>
-											onInputChange(e, "nor_ave_ing")
-										}
-									/>
-								</div>
-
-								<div className='field col'>
-									<label htmlFor='pre_ave_ing'>
-										Prerequistos ingles:
-									</label>
-									<InputText
-										id='pre_ave_ing'
-										value={formData.pre_ave_ing}
-										onChange={(e) =>
-											onInputChange(e, "pre_ave_ing")
-										}
-									/>
+								<div className='formgrid grid'>
+									<div className='field col-6'>
+										<AdjuntoCampo
+											label='Certificado Existencia'
+											formData={formData}
+											CampoImagen='ad1_edi'
+											nombreCampo='demo'
+											edicampo={
+												formData.certificadoexistencia
+											}
+											urlupload='/upload/docs'
+										/>
+									</div>
 								</div>
 							</TabPanel>
 						</TabView>
