@@ -20,6 +20,7 @@ import {
 	tabHeaderIIPaso2,
 	tabHeaderIIPaso3,
 	tabHeaderIIPaso4,
+	Chip,
 } from "../../components/crud";
 import { Conexion } from "../../service/Conexion";
 import {
@@ -59,6 +60,10 @@ export const Acreditados = () => {
 	const [dropdowsino, setdropdowsino] = useState(null);
 	const [dropdowciudadparticipo, setdropdowciudadparticipo] = useState(null);
 	const [dropdowprofecional, setdropdowprofecional] = useState(null);
+	const [dropdowformaparticipacion, setdropdowformaparticipacion] = useState(
+		null
+	);
+	let intereses = null;
 
 	// console.log({grupo});
 
@@ -69,6 +74,13 @@ export const Acreditados = () => {
 
 		datatable.gettable(TABLA).then((data) => {
 			dispatch(setDataSet(data));
+			// debugger;
+			// if (data) {
+			// 	intereses = data.intereses.split("**");
+			// 	console.log({ intereses });
+			// 	console.log("leo");
+			// }
+
 			setCargando(false);
 		});
 	}, [recargar]);
@@ -129,6 +141,12 @@ export const Acreditados = () => {
 			.then((datos) => {
 				setdropdowprofecional(datos);
 			});
+
+		datatable
+			.gettable("parametros/parametros/formaparticipacion")
+			.then((datos) => {
+				setdropdowformaparticipacion(datos);
+			});
 	}, []);
 
 	/*eventos*/
@@ -153,6 +171,7 @@ export const Acreditados = () => {
 			.then((data) => dispatch(setFormData({ ...data.data })));
 		setProductDialog(true);
 		setCargando(false);
+		console.log(formData);
 	};
 
 	const confirmDeleteProduct = (fila) => {
@@ -236,6 +255,10 @@ export const Acreditados = () => {
 			</div>
 		);
 	};
+
+	// if (intereses) {
+	// console.log(intereses);
+	// }
 
 	return (
 		<div className='grid'>
@@ -357,6 +380,28 @@ export const Acreditados = () => {
 									</div>
 
 									<div className='field col-6'>
+										<label htmlFor='formPart'>
+											Forma de participación en el BAM:
+										</label>
+										<Dropdown
+											value={formData.formPart}
+											onChange={(e) => {
+												dispatch(
+													setFormData({
+														...formData,
+														formPart: e.value,
+													})
+												);
+											}}
+											options={dropdowformaparticipacion}
+											optionLabel='name'
+											placeholder='Seleccione'
+										/>
+									</div>
+								</div>
+
+								<div className='col formgrid grid'>
+									<div className='field col-6'>
 										<label htmlFor='finacreditacion'>
 											Estado:
 										</label>
@@ -376,9 +421,6 @@ export const Acreditados = () => {
 											placeholder='Seleccione'
 										/>
 									</div>
-								</div>
-
-								<div className='col formgrid grid'>
 									<div className='field col-6'>
 										<label htmlFor='ord_cac'>
 											Valor Asignado:
@@ -443,17 +485,16 @@ export const Acreditados = () => {
 
 								<div className='col formgrid grid'>
 									<div className='field col-6'>
-										<label htmlFor='finacreditacion'>
+										<label htmlFor='tipodocumento'>
 											Tipo Documento:
 										</label>
 										<Dropdown
-											value={formData.finacreditacion}
+											value={formData.tipodocumento}
 											onChange={(e) => {
 												dispatch(
 													setFormData({
 														...formData,
-														finacreditacion:
-															e.value,
+														tipodocumento: e.value,
 													})
 												);
 											}}
@@ -482,7 +523,7 @@ export const Acreditados = () => {
 								<div className='col formgrid grid'>
 									<div className='field col-6'>
 										<label htmlFor='finacreditacion'>
-											Pais de Residencia:
+											País de Residencia:
 										</label>
 										<Dropdown
 											value={formData.paisresidencia}
@@ -699,7 +740,7 @@ export const Acreditados = () => {
 
 									<div className='field col-6'>
 										<label htmlFor='telefono'>
-											Telefno:
+											Teléfono:
 										</label>
 										<InputText
 											id='telefono'
@@ -811,7 +852,7 @@ export const Acreditados = () => {
 
 									<div className='field col-6'>
 										<label htmlFor='telefonopublicacion'>
-											Telefno Publicaciones:
+											Teléfono Publicaciones:
 										</label>
 										<InputText
 											id='telefonopublicacion'
@@ -861,6 +902,56 @@ export const Acreditados = () => {
 											optionLabel='name'
 											placeholder='Seleccione'
 										/>
+									</div>
+								</div>
+
+								<div className='col formgrid grid'>
+									<div className='field col-6'>
+										<label htmlFor='correopublicacion'>
+											Intereses y objetivos de su
+											participación
+										</label>
+										<pre>
+											{JSON.stringify(formData.intereses)}
+											{
+												// if(formData) {
+												// 	intereses = intereses.split(
+												// 	"**"
+												// )
+												// }
+												// console.log(array);
+											}
+										</pre>
+										{}
+										<select
+											name='cars'
+											id='cars'
+											multiple
+											style={{
+												width: "95%",
+												height: "120%",
+											}}>
+											{
+												// console.log(intereses);
+											}
+										</select>
+									</div>
+									<div className='field col-6'>
+										<label htmlFor='correopublicacion'>
+											Territorios de interés
+										</label>
+										<select
+											name='cars'
+											id='cars'
+											multiple
+											style={{
+												width: "95%",
+												height: "120%",
+											}}>
+											{
+												// console.log(intereses);
+											}
+										</select>
 									</div>
 								</div>
 							</TabPanel>
@@ -950,7 +1041,7 @@ export const Acreditados = () => {
 
 									<div className='field col-6'>
 										<label htmlFor='telefonoempresa'>
-											Telefno Empresa:
+											Teléfono Empresa:
 										</label>
 										<InputText
 											id='telefonoempresa'
@@ -983,7 +1074,7 @@ export const Acreditados = () => {
 									</div>
 									<div className='field col-6'>
 										<label htmlFor='paisempresa'>
-											PAis Empresa:
+											País Empresa:
 										</label>
 										<Dropdown
 											value={formData.paisempresa}
@@ -1020,7 +1111,7 @@ export const Acreditados = () => {
 								</div>
 								<div className='field col'>
 									<label htmlFor='webempresa'>
-										Pagina redes sociales:
+										Página, redes sociales:
 									</label>
 									<InputText
 										id='webempresa'
@@ -1029,6 +1120,25 @@ export const Acreditados = () => {
 											onInputChange(e, "webempresa")
 										}
 									/>
+								</div>
+								<div className='col formgrid grid'>
+									<div className='field col-6'>
+										<label htmlFor='correopublicacion'>
+											Actividad de la empresa:
+										</label>
+										<select
+											name='cars'
+											id='cars'
+											multiple
+											style={{
+												width: "95%",
+												height: "120%",
+											}}>
+											{
+												// console.log(intereses);
+											}
+										</select>
+									</div>
 								</div>
 							</TabPanel>
 

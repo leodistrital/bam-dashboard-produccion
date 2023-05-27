@@ -194,7 +194,8 @@ export const Aliados = () => {
 							>
 								<div className="formgrid grid">
 									<div className="field col">
-										{/* <pre>{JSON.stringify(formData,2)}</pre> */}
+										{/* <pre>{
+										.stringify(formData,2)}</pre> */}
 										<label htmlFor="cat_ali">Categoria español:</label>
 										<InputText
 											id="cat_ali"
