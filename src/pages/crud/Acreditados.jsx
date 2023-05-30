@@ -21,6 +21,7 @@ import {
 	tabHeaderIIPaso3,
 	tabHeaderIIPaso4,
 	Chip,
+	ListBox,
 } from "../../components/crud";
 import { Conexion } from "../../service/Conexion";
 import {
@@ -310,6 +311,14 @@ export const Acreditados = () => {
 								width: "10%",
 								minWidth: "10rem",
 							}}></Column>
+						<Column
+							field='fregistro'
+							header='Fecha R'
+							sortable
+							headerStyle={{
+								width: "10%",
+								minWidth: "10rem",
+							}}></Column>
 
 						<Column
 							header='Acciones'
@@ -366,7 +375,7 @@ export const Acreditados = () => {
 								</div>
 
 								<div className='col formgrid grid'>
-									<div className='field col-6'>
+									{/* <div className='field col-6'>
 										<label htmlFor='mai_reg'>
 											Usuario:
 										</label>
@@ -377,7 +386,7 @@ export const Acreditados = () => {
 												onInputChange(e, "mai_reg")
 											}
 										/>
-									</div>
+									</div> */}
 
 									<div className='field col-6'>
 										<label htmlFor='formPart'>
@@ -394,6 +403,27 @@ export const Acreditados = () => {
 												);
 											}}
 											options={dropdowformaparticipacion}
+											optionLabel='name'
+											placeholder='Seleccione'
+										/>
+									</div>
+									<div className='field col-6'>
+										<label htmlFor='partifiporegiones'>
+											¿Participó en ediciones anteriores
+											de BAM Regiones?::
+										</label>
+										<Dropdown
+											value={formData.partifiporegiones}
+											onChange={(e) => {
+												dispatch(
+													setFormData({
+														...formData,
+														partifiporegiones:
+															e.value,
+													})
+												);
+											}}
+											options={dropdowsino}
 											optionLabel='name'
 											placeholder='Seleccione'
 										/>
@@ -906,53 +936,53 @@ export const Acreditados = () => {
 								</div>
 
 								<div className='col formgrid grid'>
-									<div className='field col-6'>
+									<div className='field col-12'>
 										<label htmlFor='correopublicacion'>
 											Intereses y objetivos de su
 											participación
 										</label>
-										<pre>
-											{JSON.stringify(formData.intereses)}
-											{
-												// if(formData) {
-												// 	intereses = intereses.split(
-												// 	"**"
-												// )
-												// }
-												// console.log(array);
-											}
-										</pre>
-										{}
-										<select
-											name='cars'
-											id='cars'
-											multiple
-											style={{
-												width: "95%",
-												height: "120%",
-											}}>
-											{
-												// console.log(intereses);
-											}
-										</select>
+										<ListBox
+											optionLabel='name'
+											options={formData.interebam}
+										/>
 									</div>
-									<div className='field col-6'>
+								</div>
+								<div className='field col'>
+									<label htmlFor='webempresa'>
+										Otros intereses:
+									</label>
+									<InputText
+										id='webempresa'
+										value={formData.otrointeres}
+										onChange={(e) =>
+											onInputChange(e, "webempresa")
+										}
+									/>
+								</div>
+
+								<div className='col formgrid grid'>
+									<div className='field col-12'>
 										<label htmlFor='correopublicacion'>
 											Territorios de interés
 										</label>
-										<select
-											name='cars'
-											id='cars'
-											multiple
-											style={{
-												width: "95%",
-												height: "120%",
-											}}>
-											{
-												// console.log(intereses);
-											}
-										</select>
+										<ListBox
+											optionLabel='name'
+											options={formData.territoriosbam}
+										/>
 									</div>
+								</div>
+
+								<div className='field col'>
+									<label htmlFor='webempresa'>
+										Otros Territorios:
+									</label>
+									<InputText
+										id='webempresa'
+										value={formData.perfilinteres}
+										onChange={(e) =>
+											onInputChange(e, "webempresa")
+										}
+									/>
 								</div>
 							</TabPanel>
 
@@ -1121,24 +1151,31 @@ export const Acreditados = () => {
 										}
 									/>
 								</div>
+
 								<div className='col formgrid grid'>
-									<div className='field col-6'>
+									<div className='field col-12'>
 										<label htmlFor='correopublicacion'>
-											Actividad de la empresa:
+											Activodades de la Empresa
 										</label>
-										<select
-											name='cars'
-											id='cars'
-											multiple
-											style={{
-												width: "95%",
-												height: "120%",
-											}}>
-											{
-												// console.log(intereses);
+										<ListBox
+											optionLabel='name'
+											options={
+												formData.actividadempresabam
 											}
-										</select>
+										/>
 									</div>
+								</div>
+								<div className='field col'>
+									<label htmlFor='webempresa'>
+										Otras Actividades:
+									</label>
+									<InputText
+										id='webempresa'
+										value={formData.otraactividad}
+										onChange={(e) =>
+											onInputChange(e, "webempresa")
+										}
+									/>
 								</div>
 							</TabPanel>
 

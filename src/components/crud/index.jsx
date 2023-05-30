@@ -24,6 +24,7 @@ export { FileUpload } from "primereact/fileupload";
 export { Image } from "primereact/image";
 export { EditorHtml } from "../../components/crud/EditorHtml";
 export { Divider } from "primereact/divider";
+export { ListBox } from "primereact/listbox";
 
 export const tabHeaderIIespanol = (options) => {
 	return (
