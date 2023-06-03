@@ -75,13 +75,6 @@ export const Acreditados = () => {
 
 		datatable.gettable(TABLA).then((data) => {
 			dispatch(setDataSet(data));
-			// debugger;
-			// if (data) {
-			// 	intereses = data.intereses.split("**");
-			// 	console.log({ intereses });
-			// 	console.log("leo");
-			// }
-
 			setCargando(false);
 		});
 	}, [recargar]);
@@ -248,11 +241,11 @@ export const Acreditados = () => {
 					className='p-button-rounded p-button-success mr-2'
 					onClick={() => editProduct(rowData.id)}
 				/>
-				<Button
+				{/* <Button
 					icon='pi pi-trash'
 					className='p-button-rounded p-button-warning mr-2'
 					onClick={() => confirmDeleteProduct(rowData)}
-				/>
+				/> */}
 			</div>
 		);
 	};
@@ -267,7 +260,7 @@ export const Acreditados = () => {
 				<div className='card'>
 					<Cargando cargando={cargando} />
 					<Toast ref={toast} />
-					<BarraSuperior openNew={openNew} />
+					{/* <BarraSuperior openNew={openNew} /> */}
 					<TablaDatos datostabla={dataSet} titulo='Acreditados'>
 						<Column
 							field='nom_reg'
@@ -452,16 +445,16 @@ export const Acreditados = () => {
 										/>
 									</div>
 									<div className='field col-6'>
-										<label htmlFor='ord_cac'>
+										<label htmlFor='valorasi'>
 											Valor Asignado:
 										</label>
 										<Dropdown
-											value={formData.cod_reg_ave}
+											value={formData.valorasi}
 											onChange={(e) => {
 												dispatch(
 													setFormData({
 														...formData,
-														cod_reg_ave: e.value,
+														valorasi: e.value,
 													})
 												);
 											}}
@@ -473,12 +466,12 @@ export const Acreditados = () => {
 								</div>
 
 								<div className='field col'>
-									<label htmlFor='not_ave'>Nota:</label>
+									<label htmlFor='nota'>Nota:</label>
 									<InputText
-										id='not_ave'
-										value={formData.not_ave}
+										id='nota'
+										value={formData.nota}
 										onChange={(e) =>
-											onInputChange(e, "not_ave")
+											onInputChange(e, "nota")
 										}
 									/>
 								</div>
