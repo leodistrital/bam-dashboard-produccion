@@ -13,6 +13,7 @@ import {
 	tabHeaderIIespanol,
 	tabHeaderIIingles,
 	EditorHtml,
+	InputTextarea,
 } from "../../components/crud";
 import { Conexion } from "../../service/Conexion";
 import {
@@ -37,15 +38,20 @@ export const Aliadosacreditaciones = () => {
 	const toast = useRef(null);
 	const [recargar, setrecargar] = useState(0);
 	const [cargando, setCargando] = useState(false);
+	const [valueDropMenueventos, setvalueDropMenueventos] = useState(null);
 	const datatable = new Conexion();
 
-	const [valueDropdownEdiciones, setvalueDropdownEdiciones] = useState(null);
-	const [
-		dropdownplantillaSeleccionado,
-		setdropdownplantillaSeleccionado,
-	] = useState(null);
+	// const [valueDropdownEdiciones, setvalueDropdownEdiciones] = useState(null);
+	// const [
+	// 	dropdownplantillaSeleccionado,
+	// 	setdropdownplantillaSeleccionado,
+	// ] = useState(null);
 
-	// console.log({grupo});
+	useEffect(() => {
+		datatable
+			.gettable("parametros/tarifasacreditacion")
+			.then((menu) => setvalueDropMenueventos(menu));
+	}, []);
 
 	useEffect(() => {
 		//cargar la data total
@@ -215,50 +221,29 @@ export const Aliadosacreditaciones = () => {
 							<TabPanel
 								className='justify-content: flex-end;'
 								headerTemplate={tabHeaderIIespanol}>
-								<div className='field col'>
-									<label htmlFor='nom_alc'>Nombre:</label>
-									<InputText
-										id='nom_alc'
-										value={formData.nom_alc}
-										onChange={(e) =>
-											onInputChange(e, "nom_alc")
-										}
-										required
-										autoFocus
-										className={classNames({
-											"p-invalid":
-												submitted && !formData.nom_alc,
-										})}
-									/>
-									{submitted && !formData.nom_alc && (
-										<small className='p-invalid'>
-											Campo requerido.
-										</small>
-									)}
-								</div>
-
-								{/* <div className='field col '>
-									<label htmlFor='des_par'>Descripción</label>
-									<InputText
-										id='des_par'
-										value={formData.des_par}
-										onChange={(e) =>
-											onInputChange(e, "des_par")
-										}
-									/>
-								</div> */}
-								{/* <div className='field col'>
-									<ImagenCampo
-										label='Foto'
-										formData={formData}
-										CampoImagen='img_par'
-										nombreCampo='demo'
-										edicampo={formData.img_par}
-										urlupload='/upload/images/site'
-									/>
-								</div> */}
-
 								<div className='formgrid grid col'>
+									<div className='field col-6'>
+										<label htmlFor='nom_alc'>Nombre:</label>
+										<InputText
+											id='nom_alc'
+											value={formData.nom_alc}
+											onChange={(e) =>
+												onInputChange(e, "nom_alc")
+											}
+											required
+											autoFocus
+											className={classNames({
+												"p-invalid":
+													submitted &&
+													!formData.nom_alc,
+											})}
+										/>
+										{submitted && !formData.nom_alc && (
+											<small className='p-invalid'>
+												Campo requerido.
+											</small>
+										)}
+									</div>
 									<div className='field col-6'>
 										<label htmlFor='onit_alcrd_par'>
 											Nit:
@@ -271,6 +256,28 @@ export const Aliadosacreditaciones = () => {
 											}
 										/>
 									</div>
+								</div>
+
+								<div className='formgrid grid col'>
+									<div className='field col-6'>
+										<label htmlFor='tar_alc'>
+											Valor Asignado:
+										</label>
+										<Dropdown
+											value={formData.tar_alc}
+											onChange={(e) => {
+												dispatch(
+													setFormData({
+														...formData,
+														tar_alc: e.value,
+													})
+												);
+											}}
+											options={valueDropMenueventos}
+											optionLabel='name'
+											placeholder='Seleccione'
+										/>
+									</div>
 									<div className='field col-6'>
 										<label htmlFor='cup_alc'>Cupos:</label>
 										<InputText
@@ -279,6 +286,17 @@ export const Aliadosacreditaciones = () => {
 											onChange={(e) =>
 												onInputChange(e, "cup_alc")
 											}
+										/>
+									</div>
+								</div>
+								<div className='formgrid grid col'>
+									<div className='field col-2'>
+										<label htmlFor='cup_alc'>Cupos:</label>
+
+										<InputTextarea
+											value={formData.listacodigos}
+											rows={12}
+											cols={5}
 										/>
 									</div>
 								</div>

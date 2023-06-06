@@ -475,6 +475,20 @@ export const Acreditados = () => {
 										}
 									/>
 								</div>
+
+								<div className='col formgrid grid'>
+									<div className='field col-6'>
+										<label htmlFor='nom_reg'>
+											Transacción Wompi: {formData.wompi}
+										</label>
+									</div>
+									<div className='field col-6'>
+										<label htmlFor='fape_regec_ave'>
+											Código de Descuento:
+											{formData.sec_coa}
+										</label>
+									</div>
+								</div>
 							</TabPanel>
 
 							<TabPanel headerTemplate={tabHeaderIIPaso1}>
