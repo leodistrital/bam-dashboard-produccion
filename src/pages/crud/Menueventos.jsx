@@ -15,7 +15,6 @@ import {
 	tabHeaderIIespanol,
 	tabHeaderIIingles,
 	EditorHtml,
-	Calendar,
 } from "../../components/crud";
 import { Conexion } from "../../service/Conexion";
 import {
@@ -29,8 +28,8 @@ import { setDataSet, setFormData } from "../../store/appSlice";
 import { Cargando } from "../../components/crud/Cargando";
 import { ImagenCampo } from "../../components/crud/ImagenCampo";
 
-export const ProgramacionEventos = () => {
-	const TABLA = "agendaeventos";
+export const Menueventos = () => {
+	const TABLA = "menueventos";
 	let emptyFormData = {};
 	const { dataSet, formData } = useSelector((state) => state.appsesion); //datos el storage redux
 	const dispatch = useDispatch();
@@ -43,7 +42,15 @@ export const ProgramacionEventos = () => {
 	const datatable = new Conexion();
 	const [valueDropMenueventos, setvalueDropMenueventos] = useState(null);
 	const [dropdownasistencia, setdropdownasistencia] = useState(null);
-	let DIA_EN_MILISEGUNDOS = 24 * 60 * 60 * 1000;
+	const [dropdownEventos, setdropdowndropdownEventos] = useState(null);
+	const [valueDropdownEdiciones, setvalueDropdownEdiciones] = useState(null);
+	const [
+		dropdownplantillaSeleccionado,
+		setdropdownplantillaSeleccionado,
+	] = useState(null);
+
+	let tituloiter = "Menu de Eventos";
+	let { grupo } = useParams();
 
 	// console.log({grupo});
 
@@ -62,9 +69,17 @@ export const ProgramacionEventos = () => {
 		datatable
 			.gettable("parametros/menueventos")
 			.then((menu) => setvalueDropMenueventos(menu));
-		datatable.gettable("parametros/parametros/asistencia").then((datos) => {
-			setdropdownasistencia(datos);
-		});
+		datatable
+			.gettable("parametros/agendaeventos")
+			.then((menu) => setdropdowndropdownEventos(menu));
+		datatable
+			.gettable("parametros/ediciones")
+			.then((ediciones) => setvalueDropdownEdiciones(ediciones));
+		datatable
+			.gettable("parametros/parametros/plantillaevento")
+			.then((datos) => {
+				setdropdownplantillaSeleccionado(datos);
+			});
 	}, []);
 
 	/*eventos*/
@@ -118,7 +133,7 @@ export const ProgramacionEventos = () => {
 	/**operacion transacciones */
 	const saveProduct = () => {
 		setSubmitted(true);
-		if (formData.tit_ave?.trim()) {
+		if (formData.tit_mne?.trim()) {
 			// console.log(formData);
 			// debugger
 			setCargando(true);
@@ -147,6 +162,7 @@ export const ProgramacionEventos = () => {
 		const val = (e.target && e.target.value) || "";
 		let _product = { ...formData };
 		_product[`${name}`] = val;
+		_product[`${"tip_spe"}`] = grupo;
 
 		// console.log(_product);
 		dispatch(setFormData(_product));
@@ -180,30 +196,39 @@ export const ProgramacionEventos = () => {
 					<Cargando cargando={cargando} />
 					<Toast ref={toast} />
 					<BarraSuperior openNew={openNew} />
-					<TablaDatos datostabla={dataSet} titulo='Programacion'>
+					<TablaDatos datostabla={dataSet} titulo={tituloiter}>
 						<Column
 							field='tit_mne'
-							header='Menú'
-							sortable
-							headerStyle={{
-								width: "30%",
-								minWidth: "10rem",
-							}}></Column>
-
-						<Column
-							field='tit_ave'
 							header='Nombre'
 							sortable
 							headerStyle={{
 								width: "50%",
 								minWidth: "10rem",
 							}}></Column>
+
 						<Column
-							field='fec_ave'
-							header='Fecha'
+							field='menupadre'
+							header='Menu Superior'
 							sortable
 							headerStyle={{
-								width: "15%",
+								width: "30%",
+								minWidth: "10rem",
+							}}></Column>
+						<Column
+							field='edicion'
+							header='Edicion'
+							sortable
+							headerStyle={{
+								width: "10%",
+								minWidth: "10rem",
+							}}></Column>
+
+						<Column
+							field='ord_mne'
+							header='Orden'
+							sortable
+							headerStyle={{
+								width: "10%",
 								minWidth: "10rem",
 							}}></Column>
 
@@ -215,7 +240,7 @@ export const ProgramacionEventos = () => {
 					<Dialog
 						visible={productDialog}
 						style={{ width: "850px" }}
-						header='Detalle Programacion'
+						header='Detalle Speaker'
 						modal={true}
 						className='p-fluid'
 						footer={productDialogFooter(hideDialog, saveProduct)}
@@ -225,21 +250,21 @@ export const ProgramacionEventos = () => {
 								className='justify-content: flex-end;'
 								headerTemplate={tabHeaderIIespanol}>
 								<div className='field col'>
-									<label htmlFor='tit_ave'>Titulo:</label>
+									<label htmlFor='tit_mne'>Nombre:</label>
 									<InputText
-										id='tit_ave'
-										value={formData.tit_ave}
+										id='tit_mne'
+										value={formData.tit_mne}
 										onChange={(e) =>
-											onInputChange(e, "tit_ave")
+											onInputChange(e, "tit_mne")
 										}
 										required
 										autoFocus
 										className={classNames({
 											"p-invalid":
-												submitted && !formData.tit_ave,
+												submitted && !formData.nom_spe,
 										})}
 									/>
-									{submitted && !formData.tit_ave && (
+									{submitted && !formData.nom_spe && (
 										<small className='p-invalid'>
 											Campo requerido.
 										</small>
@@ -247,107 +272,59 @@ export const ProgramacionEventos = () => {
 								</div>
 
 								<div className='field col'>
-									<label htmlFor='des_ave'>
+									<label htmlFor='des_mne'>
 										Descripcion:
 									</label>
 									<EditorHtml
-										valorinicial={formData.des_ave}
-										nombre='des_ave'
+										valorinicial={formData.des_mne}
+										nombre='des_mne'
 										cambiohtml={cambiohtml}
 									/>
 								</div>
-								<div className='col formgrid grid'>
-									<div className='field col-6'>
-										<label htmlFor='fec_ave'>Fecha:</label>
 
-										<Calendar
-											dateFormat='yy-mm-dd'
-											value={
-												new Date(
-													formData.fec_ave +
-														"T00:00:00"
-												)
-											}
-											onChange={(e) =>
-												onInputChange(e, "fec_ave")
-											}></Calendar>
-
-										{/* <InputText
-											id='fec_ave'
-											value={formData.fec_ave}
-											onChange={(e) =>
-												onInputChange(e, "fec_ave")
-											}
-										/> */}
-									</div>
-
-									<div className='field col-6'>
-										<label htmlFor='hor_ave'>Hora:</label>
-
-										<InputText
-											id='hor_ave'
-											value={formData.hor_ave}
-											onChange={(e) =>
-												onInputChange(e, "hor_ave")
-											}
-										/>
-									</div>
-								</div>
-
-								<div className='field col'>
-									<label htmlFor='not_ave'>Nota:</label>
-									<InputText
-										id='not_ave'
-										value={formData.not_ave}
-										onChange={(e) =>
-											onInputChange(e, "not_ave")
-										}
+								{/* <div className='field col'>
+									<ImagenCampo
+										label='Foto'
+										formData={formData}
+										CampoImagen='img_spe'
+										nombreCampo='demo'
+										edicampo={formData.img_spe}
+										urlupload='/upload/images/site'
 									/>
-								</div>
+								</div> */}
 
-								<div className='field col'>
-									<label htmlFor='pre_ave'>
-										Prerequistos:
-									</label>
-									<InputText
-										id='pre_ave'
-										value={formData.pre_ave}
-										onChange={(e) =>
-											onInputChange(e, "pre_ave")
-										}
-									/>
-								</div>
-								<div className='col formgrid grid'>
+								<div className='formgrid grid'>
 									<div className='field col-6'>
-										<label htmlFor='vir_ave'>
-											Asitencia:
+										<label htmlFor='cod_edi_mne'>
+											Edicion:
 										</label>
 										<Dropdown
-											value={formData.vir_ave}
+											value={formData.cod_edi_mne}
 											onChange={(e) => {
 												dispatch(
 													setFormData({
 														...formData,
-														vir_ave: e.value,
+														cod_edi_mne: e.value,
 													})
 												);
 											}}
-											options={dropdownasistencia}
+											options={valueDropdownEdiciones}
 											optionLabel='name'
 											placeholder='Seleccione'
 										/>
 									</div>
+
 									<div className='field col-6'>
-										<label htmlFor='ord_cac'>
-											Menu Eventos:
+										<label htmlFor='cod_pad_mne'>
+											Menu Superior:
 										</label>
 										<Dropdown
-											value={formData.cod_mne_ave}
+											value={formData.cod_pad_mne}
 											onChange={(e) => {
 												dispatch(
 													setFormData({
 														...formData,
-														cod_mne_ave: e.value,
+														cod_pad_mne: e.value,
 													})
 												);
 											}}
@@ -357,87 +334,63 @@ export const ProgramacionEventos = () => {
 										/>
 									</div>
 								</div>
-								<div className='field col'>
-									<label htmlFor='lug_ave'>Lugar:</label>
-									<InputText
-										id='lug_ave'
-										value={formData.lug_ave}
-										onChange={(e) =>
-											onInputChange(e, "lug_ave")
-										}
-									/>
-								</div>
 
-								<div className='field col'>
-									<label htmlFor='url_ave'>Link:</label>
-									<InputText
-										id='url_ave'
-										value={formData.url_ave}
-										onChange={(e) =>
-											onInputChange(e, "url_ave")
-										}
-									/>
-								</div>
+								<div className='formgrid grid'>
+									<div className='field col-6'>
+										<label htmlFor='ord_mne'>Orden:</label>
+										<InputText
+											id='ord_mne'
+											value={formData.ord_mne}
+											onChange={(e) =>
+												onInputChange(e, "ord_mne")
+											}
+										/>
+									</div>
 
-								<div className='field col'>
-									<ImagenCampo
-										label='Imagen'
-										formData={formData}
-										CampoImagen='img_ave'
-										nombreCampo='demo'
-										edicampo={formData.img_ave}
-										urlupload='/upload/images/site'
-									/>
+									<div className='field col-6'>
+										<label htmlFor='pla_mne'>
+											Plantilla:
+										</label>
+										<Dropdown
+											value={formData.pla_mne}
+											onChange={(e) => {
+												dispatch(
+													setFormData({
+														...formData,
+														pla_mne: e.value,
+													})
+												);
+											}}
+											options={
+												dropdownplantillaSeleccionado
+											}
+											optionLabel='name'
+											placeholder='Seleccione'
+										/>
+									</div>
 								</div>
 							</TabPanel>
 
 							<TabPanel headerTemplate={tabHeaderIIingles}>
 								<div className='field col'>
-									<label htmlFor='tit_ave_ing'>
-										Titulo ingles:
-									</label>
+									<label htmlFor='tit_mne_ing'>Nombre:</label>
 									<InputText
-										id='tit_ave_ing'
-										value={formData.tit_ave_ing}
+										id='tit_mne_ing'
+										value={formData.tit_mne_ing}
 										onChange={(e) =>
-											onInputChange(e, "tit_ave_ing")
+											onInputChange(e, "tit_mne_ing")
 										}
 									/>
 								</div>
 
 								<div className='field col'>
-									<label htmlFor='des_ave_ing'>
-										Descripcion ingles:
+									<label htmlFor='des_mne_ing'>
+										Descripcion:
 									</label>
 									<EditorHtml
-										valorinicial={formData.des_ave_ing}
-										nombre='des_ave_ing'
+										valorinicial={formData.des_mne_ing}
+										nombre='des_mne_ing'
 										cambiohtml={cambiohtml}
-									/>
-								</div>
-								<div className='field col'>
-									<label htmlFor='nor_ave_ing'>
-										Nota ingles:
-									</label>
-									<InputText
-										id='nor_ave_ing'
-										value={formData.nor_ave_ing}
-										onChange={(e) =>
-											onInputChange(e, "nor_ave_ing")
-										}
-									/>
-								</div>
-
-								<div className='field col'>
-									<label htmlFor='pre_ave_ing'>
-										Prerequistos ingles:
-									</label>
-									<InputText
-										id='pre_ave_ing'
-										value={formData.pre_ave_ing}
-										onChange={(e) =>
-											onInputChange(e, "pre_ave_ing")
-										}
 									/>
 								</div>
 							</TabPanel>

@@ -52,6 +52,8 @@ import { SpeakersRegiones } from "./pages/crud/SpeakersRegiones";
 import { Aliadosacreditaciones } from "./pages/crud/Aliadosacreditaciones";
 import { Tarifas } from "./pages/crud/Tarifas";
 import { Acreditados } from "./pages/crud/Acreditados";
+import { Menueventos } from "./pages/crud/Menueventos";
+import { Acreditadosinterno } from "./pages/crud/Acreditadosinterno";
 
 const App = () => {
 	const [layoutMode, setLayoutMode] = useState("static");
@@ -289,6 +291,11 @@ const App = () => {
 					icon: "pi pi-book",
 					to: "/speakers/0",
 				},
+				{
+					label: "Menu Eventos",
+					icon: "pi pi-book",
+					to: "/menueventos",
+				},
 			],
 		},
 		{
@@ -335,9 +342,14 @@ const App = () => {
 			icon: "pi pi-fw pi-bookmark",
 			items: [
 				{
-					label: "Acreditados",
+					label: "Acreditados Web",
 					icon: "pi pi-book",
 					to: "/acreditados",
+				},
+				{
+					label: "Acreditados Internos",
+					icon: "pi pi-book",
+					to: "/acreditadosinterno",
 				},
 				{
 					label: "Aliados",
@@ -468,6 +480,11 @@ const App = () => {
 
 						<Route path='/tarifas' element={<Tarifas />} />
 						<Route path='/acreditados' element={<Acreditados />} />
+						<Route
+							path='/acreditadosinterno'
+							element={<Acreditadosinterno />}
+						/>
+						<Route path='/menueventos' element={<Menueventos />} />
 					</Routes>
 				</div>
 

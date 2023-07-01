@@ -36,8 +36,8 @@ import { Cargando } from "../../components/crud/Cargando";
 import { ImagenCampo } from "../../components/crud/ImagenCampo";
 import { AdjuntoCampo } from "../../components/crud/AdjuntoCampo";
 
-export const Acreditados = () => {
-	const TABLA = "acr_registo";
+export const Acreditadosinterno = () => {
+	const TABLA = "Acr_registointerno";
 	let emptyFormData = {};
 	const { dataSet, formData } = useSelector((state) => state.appsesion); //datos el storage redux
 	const dispatch = useDispatch();
@@ -245,11 +245,11 @@ export const Acreditados = () => {
 					className='p-button-rounded p-button-success mr-2'
 					onClick={() => editProduct(rowData.id)}
 				/>
-				{/* <Button
+				<Button
 					icon='pi pi-trash'
 					className='p-button-rounded p-button-warning mr-2'
 					onClick={() => confirmDeleteProduct(rowData)}
-				/> */}
+				/>
 			</div>
 		);
 	};
@@ -268,24 +268,11 @@ export const Acreditados = () => {
 				<div className='card'>
 					<Cargando cargando={cargando} />
 					<Toast ref={toast} />
-					{/* <BarraSuperior openNew={openNew} /> */}
-					<div className='my-2'>
-						<a
-							href='https://bogotamarket.com/api/informes/acreditados'
-							target='_blank'
-							rel='noreferrer'>
-							<Button
-								label='Descargar Informe'
-								icon=''
-								style={{
-									fontSize: "1.3rem",
-								}}
-								className='p-button-success mr-2'
-								// onClick={descargar}
-							/>
-						</a>
-					</div>
-					<TablaDatos datostabla={dataSet} titulo='Acreditados Web'>
+					<BarraSuperior openNew={openNew} />
+
+					<TablaDatos
+						datostabla={dataSet}
+						titulo='Acreditados Internos'>
 						<Column
 							field='nom_reg'
 							header='Nombre'
@@ -345,7 +332,7 @@ export const Acreditados = () => {
 					<Dialog
 						visible={productDialog}
 						style={{ width: "850px" }}
-						header='Detalle Acreditado Web'
+						header='Detalle Acreditado Internos'
 						modal={true}
 						className='p-fluid'
 						footer={productDialogFooter(hideDialog, saveProduct)}
@@ -392,7 +379,7 @@ export const Acreditados = () => {
 								</div>
 
 								<div className='col formgrid grid'>
-									{/* <div className='field col-6'>
+									<div className='field col-6'>
 										<label htmlFor='mai_reg'>
 											Usuario:
 										</label>
@@ -403,7 +390,7 @@ export const Acreditados = () => {
 												onInputChange(e, "mai_reg")
 											}
 										/>
-									</div> */}
+									</div>
 
 									<div className='field col-6'>
 										<label htmlFor='formPart'>
@@ -424,7 +411,7 @@ export const Acreditados = () => {
 											placeholder='Seleccione'
 										/>
 									</div>
-									<div className='field col-6'>
+									{/* <div className='field col-6'>
 										<label htmlFor='partifiporegiones'>
 											¿Participó en ediciones anteriores
 											de BAM Regiones?::
@@ -444,11 +431,11 @@ export const Acreditados = () => {
 											optionLabel='name'
 											placeholder='Seleccione'
 										/>
-									</div>
+									</div> */}
 								</div>
 
 								<div className='col formgrid grid'>
-									<div className='field col-6'>
+									{/* <div className='field col-6'>
 										<label htmlFor='finacreditacion'>
 											Estado:
 										</label>
@@ -467,8 +454,8 @@ export const Acreditados = () => {
 											optionLabel='name'
 											placeholder='Seleccione'
 										/>
-									</div>
-									<div className='field col-6'>
+									</div> */}
+									{/* <div className='field col-6'>
 										<label htmlFor='valorasi'>
 											Valor Asignado:
 										</label>
@@ -486,7 +473,7 @@ export const Acreditados = () => {
 											optionLabel='name'
 											placeholder='Seleccione'
 										/>
-									</div>
+									</div> */}
 								</div>
 
 								<div className='col formgrid grid'>
@@ -564,7 +551,7 @@ export const Acreditados = () => {
 									/>
 								</div>
 
-								<div className='col formgrid grid'>
+								{/* <div className='col formgrid grid'>
 									<div className='field col-6'>
 										<label htmlFor='nom_reg'>
 											Transacción Wompi: {formData.wompi}
@@ -576,7 +563,7 @@ export const Acreditados = () => {
 											{formData.sec_coa}
 										</label>
 									</div>
-								</div>
+								</div> */}
 							</TabPanel>
 
 							<TabPanel headerTemplate={tabHeaderIIPaso1}>
@@ -605,7 +592,7 @@ export const Acreditados = () => {
 									</div>
 								</div>
 
-								<div className='col formgrid grid'>
+								{/* <div className='col formgrid grid'>
 									<div className='field col-6'>
 										<label htmlFor='tipodocumento'>
 											Tipo Documento:
@@ -640,7 +627,7 @@ export const Acreditados = () => {
 											}
 										/>
 									</div>
-								</div>
+								</div> */}
 
 								<div className='col formgrid grid'>
 									<div className='field col-6'>
@@ -680,7 +667,7 @@ export const Acreditados = () => {
 									</div>
 								</div>
 								<div className='col formgrid grid'>
-									<div className='field col-6'>
+									{/* <div className='field col-6'>
 										<label htmlFor='dirresidencia'>
 											Direccion:
 										</label>
@@ -694,7 +681,7 @@ export const Acreditados = () => {
 												)
 											}
 										/>
-									</div>
+									</div> */}
 
 									<div className='field col-6'>
 										<label htmlFor='nacionalidad'>
@@ -717,7 +704,7 @@ export const Acreditados = () => {
 									</div>
 								</div>
 
-								<div className='col formgrid grid'>
+								{/* <div className='col formgrid grid'>
 									<div className='field col-6'>
 										<label htmlFor='localidad'>
 											Localidad:
@@ -757,7 +744,7 @@ export const Acreditados = () => {
 											placeholder='Seleccione'
 										/>
 									</div>
-								</div>
+								</div> */}
 
 								<div className='col formgrid grid'>
 									<div className='field col-6'>
@@ -800,7 +787,7 @@ export const Acreditados = () => {
 								</div>
 
 								<div className='col formgrid grid'>
-									<div className='field col-6'>
+									{/* <div className='field col-6'>
 										<label htmlFor='nacimientofecha'>
 											Fecha Nacimiento:
 										</label>
@@ -814,7 +801,7 @@ export const Acreditados = () => {
 												)
 											}
 										/>
-									</div>
+									</div> */}
 
 									<div className='field col-6'>
 										<label htmlFor='grupoetnia'>
@@ -886,7 +873,7 @@ export const Acreditados = () => {
 											}
 										/>
 									</div>
-									<div className='field col-6'>
+									{/* <div className='field col-6'>
 										<label htmlFor='idioma'>Idioma:</label>
 										<Dropdown
 											value={formData.idioma}
@@ -902,10 +889,10 @@ export const Acreditados = () => {
 											optionLabel='name'
 											placeholder='Seleccione'
 										/>
-									</div>
+									</div> */}
 								</div>
 
-								<div className='col formgrid grid'>
+								{/* <div className='col formgrid grid'>
 									<div className='field col-6'>
 										<label htmlFor='partifiporegiones'>
 											¿Participó en ediciones anteriores
@@ -947,7 +934,7 @@ export const Acreditados = () => {
 											placeholder='Seleccione'
 										/>
 									</div>
-								</div>
+								</div> */}
 								<div className='col formgrid grid'>
 									<div className='field col-6'>
 										<label htmlFor='indicativopublicacion'>
@@ -1027,7 +1014,7 @@ export const Acreditados = () => {
 									</div>
 								</div>
 
-								<div className='col formgrid grid'>
+								{/* <div className='col formgrid grid'>
 									<div className='field col-12'>
 										<label htmlFor='correopublicacion'>
 											Intereses y objetivos de su
@@ -1038,8 +1025,8 @@ export const Acreditados = () => {
 											options={formData.interebam}
 										/>
 									</div>
-								</div>
-								<div className='field col'>
+								</div> */}
+								{/* <div className='field col'>
 									<label htmlFor='webempresa'>
 										Otros intereses:
 									</label>
@@ -1050,9 +1037,9 @@ export const Acreditados = () => {
 											onInputChange(e, "webempresa")
 										}
 									/>
-								</div>
+								</div> */}
 
-								<div className='col formgrid grid'>
+								{/* <div className='col formgrid grid'>
 									<div className='field col-12'>
 										<label htmlFor='correopublicacion'>
 											Territorios de interés
@@ -1062,8 +1049,8 @@ export const Acreditados = () => {
 											options={formData.territoriosbam}
 										/>
 									</div>
-								</div>
-
+								</div> */}
+								{/* 
 								<div className='field col'>
 									<label htmlFor='webempresa'>
 										Otros Territorios:
@@ -1075,7 +1062,7 @@ export const Acreditados = () => {
 											onInputChange(e, "webempresa")
 										}
 									/>
-								</div>
+								</div> */}
 							</TabPanel>
 
 							<TabPanel headerTemplate={tabHeaderIIPaso3}>
@@ -1096,7 +1083,7 @@ export const Acreditados = () => {
 										/>
 									</div>
 
-									<div className='field col-6'>
+									{/* <div className='field col-6'>
 										<label htmlFor='nit'>Nit:</label>
 										<InputText
 											id='nit'
@@ -1105,7 +1092,7 @@ export const Acreditados = () => {
 												onInputChange(e, "nit")
 											}
 										/>
-									</div>
+									</div> */}
 								</div>
 
 								<div className='col formgrid grid'>
@@ -1244,7 +1231,7 @@ export const Acreditados = () => {
 									/>
 								</div>
 
-								<div className='col formgrid grid'>
+								{/* <div className='col formgrid grid'>
 									<div className='field col-12'>
 										<label htmlFor='correopublicacion'>
 											Activodades de la Empresa
@@ -1256,8 +1243,8 @@ export const Acreditados = () => {
 											}
 										/>
 									</div>
-								</div>
-								<div className='field col'>
+								</div> */}
+								{/* <div className='field col'>
 									<label htmlFor='webempresa'>
 										Otras Actividades:
 									</label>
@@ -1268,23 +1255,32 @@ export const Acreditados = () => {
 											onInputChange(e, "webempresa")
 										}
 									/>
-								</div>
+								</div> */}
 							</TabPanel>
 
 							<TabPanel headerTemplate={tabHeaderIIPaso4}>
 								<div className='formgrid grid'>
 									<div className='field col-6'>
-										<AdjuntoCampo
+										{/* <AdjuntoCampo
 											label='Fotografia'
 											formData={formData}
 											CampoImagen='ad1_edi'
 											nombreCampo='demo'
 											edicampo={formData.fotoacreditacion}
-											urlupload='/upload/docs'
+											urlupload='/acreditaciones/docs'
+										/> */}
+
+										<ImagenCampo
+											label='Fotografia'
+											formData={formData}
+											CampoImagen='fotoacreditacion'
+											nombreCampo='demo'
+											edicampo={formData.fotoacreditacion}
+											urlupload='/upload/images/banners'
 										/>
 									</div>
 								</div>
-								<div className='formgrid grid'>
+								{/* <div className='formgrid grid'>
 									<div className='field col-6'>
 										<AdjuntoCampo
 											label='Certificado Vinculo'
@@ -1311,7 +1307,7 @@ export const Acreditados = () => {
 											urlupload='/upload/docs'
 										/>
 									</div>
-								</div>
+								</div> */}
 							</TabPanel>
 						</TabView>
 
